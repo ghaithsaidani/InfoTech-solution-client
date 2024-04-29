@@ -1,0 +1,91 @@
+<h2 class="title">{{ myForm.title }}</h2>
+<form [formGroup]="myForm.formGroup" (submit)="onSubmit()">
+  <mat-card *ngFor="let card of myForm.cards">
+    <mat-card-header>
+      <mat-card-title>{{ card.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content [style]="'grid-template-columns:repeat('+( (card.fields.length == 4) ? 2 : 3 )+',1fr)'">
+      <mat-form-field *ngFor="let fc of card.fields" class="example-full-width" [hidden]="fc.form.hidden">
+        <mat-label>{{ fc.form.label }}</mat-label>
+        <input
+          *ngIf="fc.form.type === 'text' || fc.form.type==='number' || fc.form.type==='tel' || fc.form.type==='password' || fc.form.type==='email' "
+          [type]="fc.form.type" matInput [id]="fc.form.formControlName"
+          [formControlName]="fc.form.formControlName"
+          (change)="fc.hasAction==='yes' ? fc.action($event) : null">
+        @if (fc.form.type === 'file') {
+          <div style="display: flex">
+
+
+            <input type="text" readonly matInput [formControlName]="fc.form.formControlName"/>
+            <input
+              [type]="fc.form.type"
+              [id]="fc.form.formControlName"
+              hidden
+              #f_input
+              (change)="handleFileInputChange(f_input.files)"
+            />
+            <button mat-icon-button matSuffix (click)="f_input.click()" id="choose-file">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+          </div>
+
+        }
+
+        <mat-icon *ngIf="fc.form.preffix_icon && fc.form.type !== 'date'"
+                  matPrefix>{{ fc.form.preffix_icon }}
+        </mat-icon>
+        <mat-icon *ngIf="myForm.formGroup.get(fc.form.formControlName)?.disabled" matSuffix>block</mat-icon>
+        <!--<mat-icon *ngIf="form.isPassword && form.showPassword" matSuffix (click)="form?.showPassword">{{form?.suffix_icon}}</mat-icon>-->
+        <mat-select *ngIf="fc.form.type==='select'" [formControlName]="fc.form.formControlName"
+                    (selectionChange)="fc.hasAction==='yes' ? fc.action($event) : null">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let op of fc.form.selectOptions"
+                      [value]="fc.form.isObject ? op.id : op">{{ fc.form.isObject ? (op.name ? op.name : op.username) : op }}
+          </mat-option>
+        </mat-select>
+
+
+        <input *ngIf="fc.form.type==='date'" matInput [min]="fc.form.minDate" [max]="fc.form.maxDate"
+               [matDatepicker]="picker" [formControlName]="fc.form.formControlName"
+               (dateInput)="fc.hasAction==='yes' ? fc.action($event) : null">
+        <mat-datepicker-toggle *ngIf="fc.form.type==='date'" matIconPrefix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('required')) {
+          <mat-error>{{ fc.form.label }}<strong> اجباري(ة)</strong></mat-error>
+        } @else if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('email')) {
+          <mat-error>{{ fc.form.errorsMessages?.email }}</mat-error>
+        } @else if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('matching')) {
+          <mat-error>{{ fc.form.errorsMessages?.matching }}</mat-error>
+        } @else if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('max')) {
+          <mat-error>{{ fc.form.errorsMessages?.max }}</mat-error>
+        } @else if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('min')) {
+          <mat-error>{{ fc.form.errorsMessages?.min }}</mat-error>
+        } @else if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('maxlength')) {
+          <mat-error>{{ fc.form.errorsMessages?.maxLength }}</mat-error>
+        } @else if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('minlength')) {
+          <mat-error>{{ fc.form.errorsMessages?.minLength }}</mat-error>
+        } @else if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('pattern')) {
+          <mat-error>{{ fc.form.errorsMessages?.pattern }}</mat-error>
+        } @else if (this.myForm.formGroup.get(fc.form.formControlName)?.hasError('alreadyExist')) {
+          <mat-error>{{ fc.form.errorsMessages?.alreadyExist }}</mat-error>
+        } @else {
+        }
+
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+  <div class="actions">
+      <custom-mat-button [color]="addForm ? 'primary' : 'accent'" [label]="addForm ? 'ajouter' : 'modifier'"
+                         classList="add-update-button" [icon]="addForm ? 'add' : 'border_color'"
+                         type="submit"></custom-mat-button>
+
+
+    <custom-mat-button color="warn" label="annuler" [routerLink]="return_link"
+                       classList="cancel-button" icon="keyboard_return"
+    ></custom-mat-button>
+  </div>
+
+</form>
+

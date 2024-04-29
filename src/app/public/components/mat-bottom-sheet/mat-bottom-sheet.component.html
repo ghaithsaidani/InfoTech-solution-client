@@ -1,0 +1,49 @@
+<mat-nav-list>
+  @if (dataService.isAdmin || dataService.isAgent) {
+    <a mat-list-item (click)="close()" [routerLink]="'/dashboard/'+data.url+'/update/'" [state]="{data:data.tableRow}">
+      <span matListItemTitle>modifier</span>
+      <span matListItemIcon>
+        <mat-icon color="accent">edit_note</mat-icon>
+      </span>
+    </a>
+    <a mat-list-item
+       (click)="data.delete(data.tableRow.id)">
+      <span matListItemTitle>supprimer</span>
+      <span matListItemIcon>
+        <mat-icon color="warn">delete_forever</mat-icon>
+      </span>
+    </a>
+  }
+  @if (data.management === 'ava') {
+    <a mat-list-item (click)="data.uploadDocuments(data.tableRow)">
+      <span matListItemTitle>voir Documents</span>
+      <span matListItemIcon>
+        <mat-icon color="primary">receipt</mat-icon>
+    </span>
+    </a>
+
+    @if (dataService.isServiceEtranger && data.tableRow.etat === 0) {
+      <a mat-list-item (click)="data.acceptAVA(data.tableRow.id)">
+        <span matListItemTitle>accepter Compte A.V.A</span>
+        <span matListItemIcon>
+        <mat-icon style="color:#28B411">credit_score</mat-icon>
+        </span>
+      </a>
+      <a mat-list-item (click)="data.rejectAVA(data.tableRow.id)">
+        <span matListItemTitle>refuser Compte A.V.A</span>
+        <span matListItemIcon>
+        <mat-icon color="warn">credit_card_off</mat-icon>
+        </span>
+      </a>
+    }
+
+  }
+  <a mat-list-item (click)="close()">
+    <span matListItemTitle>sortir</span>
+    <span matListItemIcon>
+        <mat-icon>undo</mat-icon>
+    </span>
+  </a>
+
+</mat-nav-list>
+

@@ -1,0 +1,73 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic&display=swap');
+@include mat.core();
+@import '_variables.scss';
+
+
+$my-primary: mat.define-palette($bright-navy-blue-palette, 900);
+$my-accent: mat.define-palette(mat.$yellow-palette, 700);
+$my-warn: mat.define-palette(mat.$red-palette, 500);
+$my-custom-level: mat.define-typography-level(
+  $font-family: Roboto,
+  $font-weight: 400,
+  $font-size: 1rem,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  density: 0,
+));
+
+@include mat.all-component-themes($my-theme);
+
+
+
+
+label{
+  height: 22px;
+}
+
+.mat-focused {
+  .mat-mdc-form-field-icon-prefix,.mat-mdc-form-field-icon-suffix {
+    color: map-get($colors, "primary");
+  }
+}
+
+.mat-form-field-invalid {
+  .mat-mdc-form-field-icon-prefix,.mat-mdc-form-field-icon-suffix {
+    color: mat.get-theme-color($my-theme, "warn");
+  }
+
+}
+
+
+
+.mat-mdc-form-field:is(.ng-valid):not(.mat-form-field-hide-placeholder):not(.mat-focused) {
+  .mdc-notched-outline__leading, .mdc-notched-outline__notch, .mdc-notched-outline__trailing ,.mdc-line-ripple::before{
+    border-color: map-get($colors, "success") !important;
+  }
+
+  .mat-mdc-select-arrow{
+    svg{
+      fill: map-get($colors, "success") !important;
+    }
+  }
+
+  .mdc-floating-label, .mat-icon{
+    color: map-get($colors, "success") !important;
+  }
+
+}

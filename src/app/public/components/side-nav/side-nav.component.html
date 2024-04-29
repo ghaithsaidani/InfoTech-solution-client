@@ -1,0 +1,36 @@
+<div class="sidenav" [ngClass]="collapsed ? 'collapsed' : 'non-collapsed'">
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" (click)="!collapsed ? toggleCollapse() : sideNavClosed()">
+        <mat-icon fontSet="material-symbols-outlined" class="sidenav-link-icon">reorder</mat-icon>
+      </a>
+    </li>
+    <mat-divider class="first-divider"></mat-divider>
+    <ul class="elements">
+      @for (elem of navbarData;track elem.routerLink) {
+        <li class="sidenav-nav-item">
+          <a class="sidenav-nav-link" [routerLink]="elem.routerLink" routerLinkActive="active" [matTooltip]="elem.label"
+             [matTooltipDisabled]="collapsed" matTooltipPosition="right"
+             matTooltipClass="example-tooltip">
+            <mat-icon fontSet="material-symbols-outlined" class="sidenav-link-icon">{{ elem.icon }}</mat-icon>
+            @if (collapsed) {
+              <div class="sidenav-link-text"><span>{{ elem.label }}</span></div>
+            }
+          </a>
+        </li>
+      }
+
+    </ul>
+
+    <!--<li class="sidenav-nav-item logout">
+      <mat-divider class="logout-divider"></mat-divider>
+      <a (click)="onLogout()" class="sidenav-nav-link" matTooltip="خروج" matTooltipPosition="right"
+         matTooltipClass="example-tooltip">
+        <mat-icon class=" sidenav-link-icon">logout</mat-icon>
+        <span class="sidenav-link-text" *ngIf="collapsed">خروج</span>
+      </a>
+    </li>-->
+  </ul>
+</div>
+
+

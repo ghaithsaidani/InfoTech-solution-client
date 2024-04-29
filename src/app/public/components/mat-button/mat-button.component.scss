@@ -1,0 +1,44 @@
+button{
+  flex-direction: row-reverse;
+  color: #fff !important;
+  gap: 20px;
+  width: 100%;
+  height: 55px;
+  font-size: 0.8rem;
+  font-family: Cairo,sans-serif;
+  .mat-icon{
+    font-size: 25px;
+    width: fit-content;
+    height: fit-content;
+  }
+}
+
+.button-loading::after{
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top:0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  margin: auto ;
+  border: 4px solid transparent;
+  border-top-color: white;
+  border-radius:50% ;
+  animation: mat-spinner 1s ease infinite;
+}
+
+.button-loading .button-text , .button-loading .mat-icon{
+  visibility: hidden;
+  opacity:0;
+}
+
+@keyframes mat-spinner {
+  from{
+    transform:rotate(0turn) ;
+  }
+  to{
+    transform: rotate(1turn);
+  }
+}

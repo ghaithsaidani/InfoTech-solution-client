@@ -1,0 +1,60 @@
+<main>
+  <div class="consult-container">
+    <div [class]="hidden ? 'search-box-hidden' : 'search-box-showed'">
+      <a class="search-button" (click)="clickSearchIcon()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <input type="text" #searchInput class="search-input" [(ngModel)]="searchKey" (ngModelChange)="search()">
+    </div>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+          <ng-container *ngFor="let disCol of tableColumns"  matColumnDef="{{disCol.columnDef}}">
+            @if (disCol.columnDef === 'settings') {
+              <th mat-header-cell *matHeaderCellDef>{{ disCol.header }}</th>
+            } @else {
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ disCol.header }}</th>
+            }
+            <td mat-cell *matCellDef="let elem">
+              @if (disCol.columnDef !== 'settings' && disCol.columnDef !== 'type' && disCol.columnDef !== 'role' && disCol.columnDef !== 'select' && disCol.columnDef !== 'etat') {
+                <span>
+                {{ disCol.cell(elem) }}
+              </span>
+              }
+
+              @if (disCol.columnDef === 'type' || disCol.columnDef === 'role' || disCol.columnDef === 'etat') {
+                <span
+                  [class]="'chip '+myClass(disCol.cell(elem))">
+                <span>{{ disCol.cell(elem) }}</span>
+              </span>
+              }
+              @if (disCol.columnDef === 'settings') {
+                  <button mat-icon-button
+                          onclick="this.blur()"
+                          (click)="openBottomSheet(elem)">
+                    <mat-icon fontSet="material-symbols-outlined" color="primary">settings</mat-icon>
+                  </button>
+
+              }
+            </td>
+          </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSize]="7"
+                     [showFirstLastButtons]="true"
+                     [hidePageSize]="true"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  @if (!cant_access && !dataService.isServiceEtranger) {
+    <button [disabled]="addButton.disabled" mat-flat-button color="primary"
+            [routerLink]="'/dashboard/'+url+'/add'" id="add-button">
+      <!--*ngIf="accountsGuard.add_account"-->
+      <span>{{ addButton.label }}
+        <mat-icon fontSet="material-symbols-outlined">{{ addButton.icon }}</mat-icon></span>
+    </button>
+  }
+</main>

@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@use "sass:map";
+@use '@angular/material' as mat;
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "app/styles/variables";
+@import 'app/styles/theme';
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html, body { height: fit-content; }
+body {
+  margin: 0;
+  //font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: map-get($colors,"background");
+}
+
+
+/****** Scrollbar styling ******/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  //background-color: mat.get-theme-color($my-theme, "primary");
+  direction:rtl;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(6,59,136,0.8);
+}

@@ -1,0 +1,6 @@
+<side-nav (onToggleSideNav)="onToggleSideNav($event)"></side-nav>
+<div class="body" [ngClass]="getBodyClass()">
+  <div class="my-body">
+    <router-outlet></router-outlet>
+  </div>
+</div>

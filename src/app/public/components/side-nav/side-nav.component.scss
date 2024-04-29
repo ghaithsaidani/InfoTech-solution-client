@@ -1,0 +1,198 @@
+@use "sass:map";
+@import '../../../styles/theme';
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+@import url("https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
+
+
+.sidenav {
+  background-color: white;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: width .4s;
+  .sidenav-nav {
+    width: 45px;
+    list-style: none;
+    height: 100%;
+    padding: 0;
+    transition: width .4s;
+
+    > .sidenav-nav-item:first-child {
+      margin: 15px 0;
+      //width: 100%;
+      padding: 0;
+      .sidenav-nav-link {
+        justify-content: center;
+        &:hover{
+          background-color: transparent;
+          box-shadow: none;
+          border-radius: 0;
+          .sidenav-link-icon {
+            color: map.get($colors, "icons", "color");
+          }
+        }
+      }
+
+    }
+
+    .mat-divider {
+      height: 1px;
+      background: map-get($colors, "third");
+      margin: 10px 0;
+    }
+
+    .logout{
+      position: absolute;
+      bottom: 3%;
+      width: 45px;
+
+
+    }
+
+    .elements{
+      list-style: none;
+      padding: 0;
+      height: 75%;
+      margin: 25px 0;
+    }
+    .sidenav-nav-item {
+      height: 45px;
+      margin: 10px 0;
+      .sidenav-nav-link {
+        height: 100%;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
+        .sidenav-link-icon {
+          font-size: 23px;
+          color: map.get($colors, "icons", "color");
+          margin: 0;
+        }
+        .sidenav-link-text {
+          color: map.get($colors, "icons", "color");
+          overflow: hidden;
+          width: 0;
+          margin-left: 40px;
+          font-size: 18px;
+          font-family: map.get($fonts, "poppins-medium");
+          position: absolute;
+          height: 50%;
+          white-space: nowrap;
+        }
+
+        &:hover {
+          background-color: map.get($colors, "button", "hover");
+          box-shadow: 10px 4px 4px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(50, 50, 71, 0.006);
+          border-radius: 15px;
+
+          .sidenav-link-icon {
+            color: white;
+          }
+
+          .sidenav-link-text {
+            color: white;
+          }
+        }
+      }
+      .active {
+        border-radius: 15px;
+        cursor: pointer;
+        background-color: map.get($colors, "primary");
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(50, 50, 71, 0.006);
+        display: flex;
+        align-items: center;
+        .sidenav-link-icon, .sidenav-link-text {
+          color: white;
+        }
+
+        &:hover {
+          border-radius: 15px;
+          cursor: pointer;
+          background-color: map.get($colors, "primary");
+          box-shadow: 10px 4px 4px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(50, 50, 71, 0.006);
+          display: flex;
+          align-items: center;
+
+          .sidenav-link-icon {
+            color: white;
+          }
+
+          .sidenav-link-text {
+            color: white;
+
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.non-collapsed{
+  width: 100px;
+}
+
+.collapsed {
+  width: 300px;
+  .sidenav-nav {
+    width: 250px;
+    > .sidenav-nav-item:first-child{
+      display: flex;
+      justify-content: center;
+      .sidenav-nav-link{
+        width: 45px;
+      }
+    }
+
+    .logout{
+      width:250px;
+    }
+    .sidenav-nav-item {
+      .sidenav-nav-link {
+        justify-content: left;
+        padding: 0 0 0 10px;
+        .sidenav-link-text {
+          display: block;
+          width: 100%;
+          animation: open .2s ease-out;
+        }
+      }
+    }
+  }
+}
+
+
+@keyframes open {
+  0% {
+    width: 0;
+  }
+  20% {
+    width: 20%;
+  }
+  40% {
+    width: 40%;
+  }
+  60% {
+    width: 60%;
+  }
+  80% {
+    width: 80%;
+  }
+  100% {
+    width: max-content;
+  }
+}
+
+
+
+

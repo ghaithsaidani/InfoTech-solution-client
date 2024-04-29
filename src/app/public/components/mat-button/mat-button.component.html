@@ -1,0 +1,8 @@
+<button mat-flat-button [color]="color" [disabled]="disabled" [class]="isLoading ? classList+' button-loading' : classList" [type]="type ? type : 'button'">
+  <span class="button-text">
+    {{label}}
+  </span>
+  @if(icon){
+    <mat-icon fontSet="material-symbols-outlined">{{icon}}</mat-icon>
+  }
+</button>

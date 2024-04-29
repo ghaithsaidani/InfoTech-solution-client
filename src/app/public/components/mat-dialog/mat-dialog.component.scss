@@ -1,0 +1,40 @@
+@import '../../../styles/variables';
+
+
+.options {
+  background-color: map-get($colors, "background") !important;
+  border-radius: 10px;
+  width: 400px;
+  height: 320px;
+  padding: 20px 0;
+  display: grid;
+  .title-content {
+    place-self: start center;
+    .mat-mdc-dialog-title {
+      font-family: 'Cairo', sans-serif !important;
+      text-align: center;
+    }
+
+    .mat-mdc-dialog-content {
+      color: rgba(21, 25, 32, 0.5);
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+
+  .mat-mdc-dialog-actions {
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    place-self: center center;
+    ::ng-deep button {
+      width: 270px;
+      height: 45px;
+      border-radius: 10px;
+      font-family: Changa, sans-serif;
+      //font-family: 'Work Sans', sans-serif;
+      font-size: 16px;
+    }
+  }
+}
+
